@@ -108,6 +108,9 @@ dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
+    implementation('androidx.annotation:annotation:1.0.0')
+    implementation('com.facebook.android:audience-network-sdk:6.+')
+    implementation project(':react-native-splash-screen')
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
@@ -116,4 +119,8 @@ dependencies {
     }
 }
 
+apply from: file("../../node_modules/react-native-vector-icons/fonts.gradle")
+
+
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
