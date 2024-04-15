@@ -152,7 +152,11 @@ const Header = ({title, goBackTo}) => {
               <Pressable>
                 <Text style={styles.menuItem}>More App</Text>
               </Pressable>
-              <Pressable>
+              <Pressable
+                onPress={() => {
+                  navigation.navigate('HowToUse');
+                  setMenuModalVisible(false);
+                }}>
                 <Text style={styles.menuItem}>How to use</Text>
               </Pressable>
               <Pressable

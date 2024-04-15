@@ -77,7 +77,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Header title={'World Ip-tv'} />
+      <Header title={'USA News IPTV'} />
       {!loading && data === null && (
         <View style={styles.container}>
           <Text style={{fontSize: 24, fontWeight: 'bold', color: '#000'}}>
