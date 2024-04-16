@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getChannels} from '../helper/getChannels';
 import {ChannelsContext} from '../Context/ChannelsContext';
 import BannerAd from '../components/adComponents/BannerAd';
-import {NativeAdsManager} from 'react-native-fbads';
+import {InterstitialAdManager, NativeAdsManager} from 'react-native-fbads';
 import NativeAdWebViewPage from '../components/adComponents/NativeAdWebViewPage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -89,10 +89,21 @@ const GooglePageScreen = () => {
       await AsyncStorage.setItem('channels', jsonValue);
       setData(value);
       navigation.navigate('Home');
+
+      // Interstitial Ad
+      InterstitialAdManager.showAd(
+        'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
+      )
+        .then(didClick => {})
+        .catch(error => {
+          console.log('err', error);
+        });
     } catch (e) {
       // saving error
     }
   };
+
+  // ads
 
   const returnToMainPage = () => {
     // Check if the WebView reference is available
@@ -101,6 +112,14 @@ const GooglePageScreen = () => {
       webViewRef.current.goBack();
     }
     setShowModal1(false);
+    // Interstitial Ad
+    InterstitialAdManager.showAd(
+      'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
+    )
+      .then(didClick => {})
+      .catch(error => {
+        console.log('err', error);
+      });
   };
   return (
     <View style={styles.container}>

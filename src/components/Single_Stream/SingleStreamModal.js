@@ -26,16 +26,16 @@ const SingleStreamModal = ({onClose}) => {
   }, [url]);
 
   // ads
-  // useEffect(() => {
-  //   // Interstitial Ad
-  //   InterstitialAdManager.showAd(
-  //     'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-  //   )
-  //     .then(didClick => {})
-  //     .catch(error => {
-  //       console.log('err', error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // Interstitial Ad
+    InterstitialAdManager.showAd(
+      'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
+    )
+      .then(didClick => {})
+      .catch(error => {
+        console.log('err', error);
+      });
+  }, []);
   return (
     <SafeAreaView style={styles.container}>
       <View style={{flex: 1}}>
@@ -80,9 +80,9 @@ const SingleStreamModal = ({onClose}) => {
             </Text>
           </Icon.Button>
         </View>
-        {/* <View style={{justifyContent: 'center', margin: 10, marginTop: 20}}>
-            <AdComponent adsManager={adsManager} />
-          </View> */}
+        <View style={{justifyContent: 'center', margin: 10, marginTop: 20}}>
+          <AdComponent adsManager={adsManager} />
+        </View>
       </View>
     </SafeAreaView>
   );

@@ -130,9 +130,9 @@ const Home = () => {
         </View>
       )}
       {/* banner ad */}
-      {/* <BannerAd
+      <BannerAd
         placement_id={'IMG_16_9_APP_INSTALL#948800379889675_948801103222936'}
-      /> */}
+      />
     </SafeAreaView>
   );
 };
