@@ -156,10 +156,6 @@ const GooglePageScreen = () => {
                   title="Go Back"></Button>
               </>
             )}
-
-            <View style={{justifyContent: 'center', margin: 10, marginTop: 20}}>
-              <NativeAdWebViewPage adsManager={adsManager} />
-            </View>
           </View>
         </View>
       )}
@@ -184,9 +180,6 @@ const GooglePageScreen = () => {
                   title="Save Playlist"></Button>
               </>
             )}
-            <View style={{justifyContent: 'center', margin: 10, marginTop: 20}}>
-              <NativeAdWebViewPage adsManager={adsManager} />
-            </View>
           </View>
         </View>
       )}
@@ -217,8 +210,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#039EBD',
     padding: 30,
     borderRadius: 15,
-    width: Dimensions.get('screen').width - 30,
-    height: Dimensions.get('screen').height / 2,
+    // width: Dimensions.get('screen').width - 30,
+    // height: Dimensions.get('screen').height / 2,
   },
   modalValue: {
     color: 'white',

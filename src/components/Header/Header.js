@@ -1,6 +1,7 @@
 import {
   Alert,
   Dimensions,
+  Linking,
   Modal,
   Pressable,
   StyleSheet,
@@ -74,6 +75,24 @@ const Header = ({title, goBackTo}) => {
     setData(null);
     navigation.navigate('Home');
   };
+
+  const handleRateUs = () => {
+    const URL = `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`;
+
+    Linking.canOpenURL(URL)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(URL);
+        } else {
+          // Fallback to web URL
+          Linking.openURL(
+            `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`,
+          );
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  };
+
   // ads
   useEffect(() => {
     // Interstitial Ad
@@ -146,12 +165,12 @@ const Header = ({title, goBackTo}) => {
               <Pressable onPress={handleReset}>
                 <Text style={styles.menuItem}>Reset</Text>
               </Pressable>
-              <Pressable>
+              <Pressable onPress={handleRateUs}>
                 <Text style={styles.menuItem}>Rate Us</Text>
               </Pressable>
-              <Pressable>
+              {/* <Pressable>
                 <Text style={styles.menuItem}>More App</Text>
-              </Pressable>
+              </Pressable> */}
               <Pressable
                 onPress={() => {
                   navigation.navigate('HowToUse');

@@ -1,4 +1,4 @@
-package com.bdiptv
+package com.iptvusa.iptvapp
 
 import android.app.Application
 import com.facebook.react.PackageList

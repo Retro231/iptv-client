@@ -33,11 +33,11 @@ const App = () => {
     };
   }, []);
 
-  OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+  //OneSignal.Debug.setLogLevel(LogLevel.Verbose);
   OneSignal.initialize('e17486f5-e895-4ae2-bfc9-470cbaded3df');
 
   // Also need enable notifications to complete OneSignal setup
-  OneSignal.Notifications.requestPermission(true);
+  // OneSignal.Notifications.requestPermission(true);
 
   return (
     <NavigationContainer>

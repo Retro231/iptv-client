@@ -18,7 +18,7 @@ import {ChannelsContext} from '../Context/ChannelsContext';
 import {getChannels} from '../helper/getChannels';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import BannerAd from '../components/adComponents/BannerAd';
-import {InterstitialAdManager} from 'react-native-fbads';
+// import {InterstitialAdManager} from 'react-native-fbads';
 const Home = () => {
   const navigation = useNavigation();
   const {data, setData} = useContext(ChannelsContext);
@@ -77,7 +77,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Header title={'USA News IPTV'} />
+      <Header title={'USA NEWS IPTV'} />
       {!loading && data === null && (
         <View style={styles.container}>
           <Text style={{fontSize: 24, fontWeight: 'bold', color: '#000'}}>
