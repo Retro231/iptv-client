@@ -2,6 +2,9 @@
 #
 .DS_Store
 
+# costom path
+android/app/debug/
+
 # Xcode
 #
 build/
