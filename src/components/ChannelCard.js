@@ -1,5 +1,6 @@
 import {
   Dimensions,
+  Linking,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -17,13 +18,30 @@ import {useNavigation} from '@react-navigation/native';
 // streamUrl,
 
 const ChannelCard = ({data, toggleFavourite}) => {
-  const {title, tvgId, tvgLogo, groupTitle, streamUrl, favourite} = data;
+  const {title, tvgId, tvgLogo, groupTitle, streamUrl, favourite, type} = data;
   const navigation = useNavigation();
   const handleCardPress = () => {
-    navigation.navigate('Player', {
-      streamUrl,
-      title,
-    });
+    if (type === 'web') {
+      navigation.navigate('CardWebView', {mainUri: streamUrl});
+    } else if (type === 'custom') {
+      const URL = streamUrl;
+
+      Linking.canOpenURL(URL)
+        .then(supported => {
+          if (supported) {
+            Linking.openURL(URL);
+          } else {
+            // Fallback to web URL
+            Linking.openURL(URL);
+          }
+        })
+        .catch(err => console.error('An error occurred', err));
+    } else {
+      navigation.navigate('Player', {
+        streamUrl,
+        title,
+      });
+    }
   };
 
   return (

@@ -27,9 +27,7 @@ const Player = () => {
           navigation.goBack(null);
 
           // show ad
-          InterstitialAdManager.showAd(
-            'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-          )
+          InterstitialAdManager.showAd('948800379889675_948801323222914')
             .then(didClick => {})
             .catch(error => {
               console.log('err', error);
@@ -72,9 +70,7 @@ const Player = () => {
       </View>
       {/* banner ad */}
       {!fullScreen && (
-        <BannerAd
-          placement_id={'IMG_16_9_APP_INSTALL#948800379889675_948801103222936'}
-        />
+        <BannerAd placement_id={'948800379889675_948801103222936'} />
       )}
     </>
   );

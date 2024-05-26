@@ -3,9 +3,9 @@ import Home from '../screens/Home';
 import GooglePageScreen from '../screens/GooglePageScreen';
 import CategoryDetailsScreen from '../screens/CategoryDetailsScreen';
 import Player from '../components/player/Player';
-import ShowAd from '../screens/ShowAd';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import HowToUse from '../screens/HowToUse';
+import CardWebView from '../components/cardwebview/CardWebView';
 
 const Stack = createStackNavigator();
 
@@ -24,7 +24,7 @@ export function MyStack() {
       <Stack.Screen name="Player" component={Player} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="HowToUse" component={HowToUse} />
-      <Stack.Screen name="ShowAd" component={ShowAd} />
+      <Stack.Screen name="CardWebView" component={CardWebView} />
     </Stack.Navigator>
   );
 }

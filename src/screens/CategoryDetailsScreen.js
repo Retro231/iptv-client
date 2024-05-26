@@ -13,8 +13,6 @@ import ChannelCard from '../components/ChannelCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SearchContext} from '../Context/SearchContext';
 import {getMergedChannels} from '../helper/getMergedChannels';
-import BannerAd from '../components/adComponents/BannerAd';
-import {InterstitialAdManager} from 'react-native-fbads';
 import {getChannels} from '../helper/getChannels';
 const headItem = [
   {
@@ -162,18 +160,6 @@ const CategoryDetailsScreen = ({data}) => {
     storeChannels(updatedData);
     setRefresh(false);
   };
-
-  // ads
-  // useEffect(() => {
-  //   // Interstitial Ad
-  //   InterstitialAdManager.showAd(
-  //     'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-  //   )
-  //     .then(didClick => {})
-  //     .catch(error => {
-  //       console.log('err', error);
-  //     });
-  // }, []);
 
   return (
     <View style={{flex: 1}}>

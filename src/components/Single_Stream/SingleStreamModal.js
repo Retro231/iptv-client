@@ -1,14 +1,18 @@
-import {Pressable, SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {
+  BackHandler,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {InterstitialAdManager, NativeAdsManager} from 'react-native-fbads';
 import {useNavigation} from '@react-navigation/native';
 import AdComponent from '../adComponents/AdComponent';
-const adsManager = new NativeAdsManager(
-  'IMG_16_9_APP_INSTALL#948800379889675_949813169788396',
-  2,
-);
+const adsManager = new NativeAdsManager('948800379889675_949813169788396', 2);
 const SingleStreamModal = ({onClose}) => {
   const [url, setUrl] = useState('');
   const navigation = useNavigation();
@@ -28,9 +32,7 @@ const SingleStreamModal = ({onClose}) => {
   // ads
   useEffect(() => {
     // Interstitial Ad
-    InterstitialAdManager.showAd(
-      'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-    )
+    InterstitialAdManager.showAd('948800379889675_948801323222914')
       .then(didClick => {})
       .catch(error => {
         console.log('err', error);

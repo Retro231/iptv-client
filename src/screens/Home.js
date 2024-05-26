@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  BackHandler,
   Modal,
   Pressable,
   SafeAreaView,
@@ -18,7 +19,6 @@ import {ChannelsContext} from '../Context/ChannelsContext';
 import {getChannels} from '../helper/getChannels';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import BannerAd from '../components/adComponents/BannerAd';
-// import {InterstitialAdManager} from 'react-native-fbads';
 const Home = () => {
   const navigation = useNavigation();
   const {data, setData} = useContext(ChannelsContext);
@@ -61,19 +61,6 @@ const Home = () => {
   const handleSeachChannels = () => {
     navigation.navigate('GooglePageScreen');
   };
-  // ads
-  // useEffect(() => {
-  //   // Interstitial Ad
-  //   if (!loading && data !== null) {
-  //     InterstitialAdManager.showAd(
-  //       'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-  //     )
-  //       .then(didClick => {})
-  //       .catch(error => {
-  //         console.log('err', error);
-  //       });
-  //   }
-  // }, [data]);
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -112,7 +99,8 @@ const Home = () => {
               marginTop: 22,
             }}
             visible={showModal}
-            animationType="fade">
+            animationType="fade"
+            onRequestClose={toggleModal}>
             <SingleStreamModal onClose={toggleModal} />
           </Modal>
         </View>
@@ -130,9 +118,7 @@ const Home = () => {
         </View>
       )}
       {/* banner ad */}
-      <BannerAd
-        placement_id={'IMG_16_9_APP_INSTALL#948800379889675_948801103222936'}
-      />
+      <BannerAd placement_id={'948800379889675_948801103222936'} />
     </SafeAreaView>
   );
 };

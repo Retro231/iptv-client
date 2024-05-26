@@ -97,9 +97,7 @@ const Header = ({title, goBackTo}) => {
   useEffect(() => {
     // Interstitial Ad
     if (menuModalVisible) {
-      InterstitialAdManager.showAd(
-        'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-      )
+      InterstitialAdManager.showAd('948800379889675_948801323222914')
         .then(didClick => {})
         .catch(error => {
           console.log('err', error);
@@ -143,7 +141,6 @@ const Header = ({title, goBackTo}) => {
           transparent={true}
           visible={menuModalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setMenuModalVisible(!menuModalVisible);
           }}>
           <View style={styles.centeredView}>
@@ -194,7 +191,6 @@ const Header = ({title, goBackTo}) => {
           transparent={true}
           visible={singleStreamModalVisible}
           onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
             setSingleStreamModalVisible(!singleStreamModalVisible);
           }}>
           <SingleStreamModal onClose={handleSingleStream} />

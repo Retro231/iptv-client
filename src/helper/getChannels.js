@@ -1,4 +1,4 @@
-export const getChannels = async () => {
+const fatchURLOne = async () => {
   // URL of the M3U file
   const m3uUrl = 'https://iptv-org.github.io/iptv/countries/us.m3u';
 
@@ -71,4 +71,35 @@ export const getChannels = async () => {
   } catch (error) {
     console.log(error);
   }
+};
+const fatchURLTwo = async () => {
+  const url = 'https://retrosoft.co/iptv_test_json.json';
+  try {
+    // Fetch the data
+    let response = await fetch(url);
+
+    // Check if the fetch was successful
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+
+    // Parse the JSON
+    let data = await response.json();
+
+    // Log the data to the console
+    return data;
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+};
+
+export const getChannels = async () => {
+  const dataOne = await fatchURLOne();
+  const dataTwo = await fatchURLTwo();
+
+  console.log(dataTwo);
+
+  const channels = [...dataTwo, ...dataOne];
+
+  return channels;
 };

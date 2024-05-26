@@ -2,7 +2,7 @@
 #
 .DS_Store
 
-# costom path
+# custom path
 android/app/debug/
 
 # Xcode

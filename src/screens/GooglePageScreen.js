@@ -1,11 +1,12 @@
 import {
   ActivityIndicator,
+  BackHandler,
   Dimensions,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import React, {useContext, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {WebView} from 'react-native-webview';
 import {useNavigation} from '@react-navigation/native';
 import {Button} from 'react-native';
@@ -13,14 +14,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {getChannels} from '../helper/getChannels';
 import {ChannelsContext} from '../Context/ChannelsContext';
 import BannerAd from '../components/adComponents/BannerAd';
-import {InterstitialAdManager, NativeAdsManager} from 'react-native-fbads';
-import NativeAdWebViewPage from '../components/adComponents/NativeAdWebViewPage';
+import {InterstitialAdManager} from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-
-const adsManager = new NativeAdsManager(
-  'IMG_16_9_APP_INSTALL#948800379889675_949813169788396',
-  2,
-);
+import CheckBox from '@react-native-community/checkbox';
 
 const GooglePageScreen = () => {
   const navigation = useNavigation();
@@ -31,11 +27,48 @@ const GooglePageScreen = () => {
   const [showModal2, setShowModal2] = useState(false);
   const [mainUriLoaded, setMainUriLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [showpopup, setshowpopup] = useState(true);
+  const [togglePopUpCheckBox, setTogglePopUpCheckBox] = useState(false);
   const [mainUri, setMainUri] = useState(
     'https://www.google.com/search?q=github+iptv',
   );
   const uri1 = 'https://github.com/iptv-org/iptv';
+
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation]);
+
+  const checkShowAgainPopup = async () => {
+    const jsonValue = await AsyncStorage.getItem('glpagePopup');
+
+    if (jsonValue !== null) {
+      const {showAgain} = JSON.parse(jsonValue);
+
+      if (showAgain) {
+        setshowpopup(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    checkShowAgainPopup();
+  }, []);
+
+  const handlePopupCheckbox = async value => {
+    setTogglePopUpCheckBox(value);
+    const jsonValue = JSON.stringify({showAgain: value});
+    await AsyncStorage.setItem('glpagePopup', jsonValue);
+  };
 
   const handleSourceUrlLoad = e => {
     // console.log(e.nativeEvent.url);
@@ -91,9 +124,7 @@ const GooglePageScreen = () => {
       navigation.navigate('Home');
 
       // Interstitial Ad
-      InterstitialAdManager.showAd(
-        'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-      )
+      InterstitialAdManager.showAd('948800379889675_948801323222914')
         .then(didClick => {})
         .catch(error => {
           console.log('err', error);
@@ -103,8 +134,6 @@ const GooglePageScreen = () => {
     }
   };
 
-  // ads
-
   const returnToMainPage = () => {
     // Check if the WebView reference is available
     if (webViewRef.current) {
@@ -113,9 +142,7 @@ const GooglePageScreen = () => {
     }
     setShowModal1(false);
     // Interstitial Ad
-    InterstitialAdManager.showAd(
-      'IMG_16_9_APP_INSTALL#948800379889675_948801323222914',
-    )
+    InterstitialAdManager.showAd('948800379889675_948801323222914')
       .then(didClick => {})
       .catch(error => {
         console.log('err', error);
@@ -183,10 +210,60 @@ const GooglePageScreen = () => {
           </View>
         </View>
       )}
+      {showpopup && (
+        <View style={styles.modalContainer}>
+          <View style={styles.modal}>
+            <View style={{gap: 10}}>
+              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+                Are you unsure about what to do next? Let us help you!
+              </Text>
+              <View style={{gap: 5}}>
+                <Text style={{color: '#fff', fontSize: 15}}>
+                  If you know what to do next, click 'Continue' to proceed.
+                </Text>
+                <Button
+                  title="Continue"
+                  color={'#003A53'}
+                  onPress={() => setshowpopup(false)}
+                />
+              </View>
+              <View style={{gap: 5}}>
+                <Text style={{color: '#fff', fontSize: 15}}>
+                  Click 'Tutorial' if you'd like a step-by-step guide on using
+                  our application.
+                </Text>
+                <Button
+                  title="Tutorial"
+                  color={'#003A53'}
+                  onPress={() => {
+                    navigation.navigate('HowToUse');
+                    setshowpopup(false);
+                  }}
+                />
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                textAlign: 'right',
+              }}>
+              <CheckBox
+                disabled={false}
+                value={togglePopUpCheckBox}
+                onValueChange={handlePopupCheckbox}
+                onTintColor="#fff"
+                onFillColor="#003A53"
+              />
+              <Text style={{color: '#fff', fontSize: 15}}>
+                Don't show this again
+              </Text>
+            </View>
+          </View>
+        </View>
+      )}
       {/* banner ad */}
-      <BannerAd
-        placement_id={'IMG_16_9_APP_INSTALL#948800379889675_948801103222936'}
-      />
+      <BannerAd placement_id={'948800379889675_948801103222936'} />
     </View>
   );
 };
@@ -210,6 +287,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#039EBD',
     padding: 30,
     borderRadius: 15,
+    gap: 5,
     // width: Dimensions.get('screen').width - 30,
     // height: Dimensions.get('screen').height / 2,
   },

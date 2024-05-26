@@ -1,9 +1,10 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {BackHandler, Text, View} from 'react-native';
+import React, {useEffect} from 'react';
 import Header from '../components/Header/Header';
 import {FlatList} from 'react-native-gesture-handler';
 import SingleStep from '../components/How_to_use/SingleStep';
 import BannerAd from '../components/adComponents/BannerAd';
+import {useNavigation} from '@react-navigation/native';
 
 const img1 = require('./../assets/screenshots/1.png');
 const img2 = require('./../assets/screenshots/2.png');
@@ -35,6 +36,20 @@ const data = [
 ];
 
 const HowToUse = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    const backAction = () => {
+      navigation.goBack();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction,
+    );
+
+    return () => backHandler.remove();
+  }, [navigation]);
   return (
     <View style={{flex: 1, backgroundColor: '#039EBD'}}>
       <Header title={'How To Use'} goBackTo={'oneStep'} />
@@ -60,13 +75,9 @@ const HowToUse = () => {
         />
       </View>
       {/* banner ad */}
-      <BannerAd
-        placement_id={'IMG_16_9_APP_INSTALL#948800379889675_948801103222936'}
-      />
+      <BannerAd placement_id={'948800379889675_948801103222936'} />
     </View>
   );
 };
 
 export default HowToUse;
-
-const styles = StyleSheet.create({});
