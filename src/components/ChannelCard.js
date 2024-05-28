@@ -10,6 +10,7 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {Image} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {globalColors} from '../globalStyles';
 
 // title,
 // tvgId,
@@ -68,10 +69,14 @@ const ChannelCard = ({data, toggleFavourite}) => {
         <View style={{width: '90%', gap: 2}}>
           <Text
             numberOfLines={2}
-            style={{fontWeight: 'bold', color: '#fff', textAlign: 'left'}}>
+            style={{
+              fontWeight: 'bold',
+              color: globalColors.primaryText,
+              textAlign: 'left',
+            }}>
             {title}
           </Text>
-          <Text style={{fontWeight: 'normal', color: '#fff'}}>
+          <Text style={{fontWeight: 'normal', color: globalColors.primaryText}}>
             {groupTitle}
           </Text>
         </View>
@@ -81,7 +86,7 @@ const ChannelCard = ({data, toggleFavourite}) => {
             <Icon
               name={'favorite'}
               size={18}
-              color={favourite === true ? 'red' : '#fff'}
+              color={favourite === true ? 'red' : globalColors.primaryText}
             />
           </TouchableOpacity>
         </View>
@@ -94,7 +99,7 @@ export default ChannelCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#039EBD',
+    backgroundColor: globalColors.primaryBackground,
     margin: 2,
     marginTop: 4,
     shadowColor: '#000',

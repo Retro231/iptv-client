@@ -5,6 +5,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import SingleStep from '../components/How_to_use/SingleStep';
 import BannerAd from '../components/adComponents/BannerAd';
 import {useNavigation} from '@react-navigation/native';
+import {globalColors} from '../globalStyles';
 
 const img1 = require('./../assets/screenshots/1.png');
 const img2 = require('./../assets/screenshots/2.png');
@@ -51,7 +52,7 @@ const HowToUse = () => {
     return () => backHandler.remove();
   }, [navigation]);
   return (
-    <View style={{flex: 1, backgroundColor: '#039EBD'}}>
+    <View style={{flex: 1, backgroundColor: globalColors.primaryBackground}}>
       <Header title={'How To Use'} goBackTo={'oneStep'} />
       <View style={{flex: 1, margin: 10}}>
         <FlatList

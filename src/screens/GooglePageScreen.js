@@ -17,6 +17,7 @@ import BannerAd from '../components/adComponents/BannerAd';
 import {InterstitialAdManager} from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
+import {globalColors} from '../globalStyles';
 
 const GooglePageScreen = () => {
   const navigation = useNavigation();
@@ -167,7 +168,10 @@ const GooglePageScreen = () => {
           <View style={styles.modal}>
             {searching ? (
               <>
-                <ActivityIndicator size={'small'} color={'#fff'} />
+                <ActivityIndicator
+                  size={'small'}
+                  color={globalColors.primaryText}
+                />
                 <Text style={styles.modalValue}>Searching playlist....</Text>
               </>
             ) : (
@@ -178,7 +182,7 @@ const GooglePageScreen = () => {
                 </View>
                 <Button
                   style={styles.modalButton}
-                  color={'#003A53'}
+                  color={globalColors.secondaryBackground}
                   onPress={returnToMainPage}
                   title="Go Back"></Button>
               </>
@@ -214,27 +218,32 @@ const GooglePageScreen = () => {
         <View style={styles.modalContainer}>
           <View style={styles.modal}>
             <View style={{gap: 10}}>
-              <Text style={{color: '#fff', fontSize: 20, fontWeight: 'bold'}}>
+              <Text
+                style={{
+                  color: globalColors.primaryText,
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                }}>
                 Are you unsure about what to do next? Let us help you!
               </Text>
               <View style={{gap: 5}}>
-                <Text style={{color: '#fff', fontSize: 15}}>
+                <Text style={{color: globalColors.primaryText, fontSize: 15}}>
                   If you know what to do next, click 'Continue' to proceed.
                 </Text>
                 <Button
                   title="Continue"
-                  color={'#003A53'}
+                  color={globalColors.secondaryBackground}
                   onPress={() => setshowpopup(false)}
                 />
               </View>
               <View style={{gap: 5}}>
-                <Text style={{color: '#fff', fontSize: 15}}>
+                <Text style={{color: globalColors.primaryText, fontSize: 15}}>
                   Click 'Tutorial' if you'd like a step-by-step guide on using
                   our application.
                 </Text>
                 <Button
                   title="Tutorial"
-                  color={'#003A53'}
+                  color={globalColors.secondaryBackground}
                   onPress={() => {
                     navigation.navigate('HowToUse');
                     setshowpopup(false);
@@ -252,10 +261,10 @@ const GooglePageScreen = () => {
                 disabled={false}
                 value={togglePopUpCheckBox}
                 onValueChange={handlePopupCheckbox}
-                onTintColor="#fff"
-                onFillColor="#003A53"
+                onTintColor={globalColors.primaryText}
+                onFillColor={globalColors.secondaryBackground}
               />
-              <Text style={{color: '#fff', fontSize: 15}}>
+              <Text style={{color: globalColors.primaryText, fontSize: 15}}>
                 Don't show this again
               </Text>
             </View>
@@ -284,7 +293,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   modal: {
-    backgroundColor: '#039EBD',
+    backgroundColor: globalColors.primaryBackground,
     padding: 30,
     borderRadius: 15,
     gap: 5,
@@ -299,5 +308,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-  modalButton: {},
 });

@@ -9,6 +9,7 @@ import {
 import React, {useEffect} from 'react';
 import Header from '../components/Header/Header';
 import {useNavigation} from '@react-navigation/native';
+import {globalColors} from '../globalStyles';
 
 const PrivacyPolicy = () => {
   const navigation = useNavigation();
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   title: {
-    color: '#039EBD',
+    color: globalColors.primaryBackground,
     fontSize: 20,
     margin: 10,
     fontWeight: 'bold',

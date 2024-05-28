@@ -18,6 +18,7 @@ import {ChannelsContext} from '../../Context/ChannelsContext';
 import SingleStreamModal from '../Single_Stream/SingleStreamModal';
 import {SearchContext} from '../../Context/SearchContext';
 import {InterstitialAdManager} from 'react-native-fbads';
+import {globalColors} from '../../globalStyles';
 
 const Header = ({title, goBackTo}) => {
   const [menuModalVisible, setMenuModalVisible] = useState(false);
@@ -110,7 +111,11 @@ const Header = ({title, goBackTo}) => {
         <View style={styles.headerLeft}>
           {goBackTo && (
             <TouchableOpacity onPress={handleGoBack}>
-              <Icon name="arrow-back" size={24} color="#fff" />
+              <Icon
+                name="arrow-back"
+                size={24}
+                color={globalColors.primaryText}
+              />
             </TouchableOpacity>
           )}
 
@@ -125,15 +130,23 @@ const Header = ({title, goBackTo}) => {
             /> */}
               <TouchableOpacity
                 onPress={() => setIsSearchClicked(!isSearchClicked)}>
-                <Icon name="search" size={24} color="#fff" />
+                <Icon
+                  name="search"
+                  size={24}
+                  color={globalColors.primaryText}
+                />
               </TouchableOpacity>
               <TouchableOpacity onPress={handleSingleStream}>
-                <Icon name="play-circle" size={24} color="#fff" />
+                <Icon
+                  name="play-circle"
+                  size={24}
+                  color={globalColors.primaryText}
+                />
               </TouchableOpacity>
             </>
           )}
           <TouchableOpacity onPress={handleMenu}>
-            <Icon name="more-vert" size={24} color="#fff" />
+            <Icon name="more-vert" size={24} color={globalColors.primaryText} />
           </TouchableOpacity>
         </View>
         <Modal
@@ -203,7 +216,7 @@ const Header = ({title, goBackTo}) => {
             flexDirection: 'row',
             justifyContent: 'space-between',
             padding: 10,
-            backgroundColor: '#039EBD',
+            backgroundColor: globalColors.primaryBackground,
             alignItems: 'center',
             position: 'relative',
           }}>
@@ -212,10 +225,10 @@ const Header = ({title, goBackTo}) => {
               borderWidth: 1,
               padding: 0,
               width: Dimensions.get('window').width - 50,
-              borderColor: '#fff',
+              borderColor: globalColors.primaryText,
               borderRadius: 10,
               paddingHorizontal: 10,
-              color: '#fff',
+              color: globalColors.primaryText,
             }}
             ref={textInputRef}
             onChangeText={handleSearchTextChange}
@@ -227,7 +240,7 @@ const Header = ({title, goBackTo}) => {
               setIsSearchClicked(!isSearchClicked);
               setSearchValue('');
             }}>
-            <Icon name="close" size={24} color="#fff" />
+            <Icon name="close" size={24} color={globalColors.primaryText} />
           </TouchableOpacity>
         </View>
       )}
@@ -242,7 +255,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
-    backgroundColor: '#039EBD',
+    backgroundColor: globalColors.primaryBackground,
     alignItems: 'center',
     position: 'relative',
   },
@@ -253,7 +266,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#fff',
+    color: globalColors.primaryText,
   },
   actionBtn: {
     flexDirection: 'row',
@@ -272,7 +285,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     // marginTop: 44,
-    backgroundColor: '#039EBD',
+    backgroundColor: globalColors.primaryBackground,
     position: 'relative',
   },
   modalView: {
@@ -288,11 +301,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
     margin: 5,
-    color: '#333',
+    color: globalColors.secondaryText,
   },
   searchBar: {
     borderWidth: 1,
-    borderColor: '#039EBD',
+    borderColor: globalColors.primaryBackground,
     padding: 3,
     margin: 10,
     width: 250,

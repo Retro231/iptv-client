@@ -70,10 +70,11 @@ const fatchURLOne = async () => {
     return channels;
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 const fatchURLTwo = async () => {
-  const url = 'https://retrosoft.co/iptv_test_json.json';
+  const url = 'http://ads.livemtv.com/Usa_json_bowntown.json';
   try {
     // Fetch the data
     let response = await fetch(url);
@@ -90,6 +91,7 @@ const fatchURLTwo = async () => {
     return data;
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
+    return [];
   }
 };
 
