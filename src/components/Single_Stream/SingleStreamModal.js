@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {InterstitialAdManager, NativeAdsManager} from 'react-native-fbads';
 import {useNavigation} from '@react-navigation/native';
 import AdComponent from '../adComponents/AdComponent';
+import {globalColors} from '../../globalStyles';
 const adsManager = new NativeAdsManager('948800379889675_949813169788396', 2);
 const SingleStreamModal = ({onClose}) => {
   const [url, setUrl] = useState('');
@@ -45,11 +46,11 @@ const SingleStreamModal = ({onClose}) => {
           style={{
             alignItems: 'center',
             borderWidth: 1,
-            backgroundColor: '#039EBD',
-            borderColor: '#039EBD',
+            backgroundColor: globalColors.primaryBackground,
+            borderColor: globalColors.primaryBackground,
           }}
           onPress={onClose}>
-          <Text style={{fontSize: 24, color: '#fff'}}>X</Text>
+          <Text style={{fontSize: 24, color: globalColors.primaryText}}>X</Text>
         </Pressable>
         <View style={styles.centeredView}>
           <Text style={styles.title}>Play Single Stream</Text>
@@ -67,14 +68,14 @@ const SingleStreamModal = ({onClose}) => {
         <View style={styles.actionBtn}>
           <Icon.Button
             name="play-circle"
-            backgroundColor="#039EBD"
+            backgroundColor={globalColors.primaryBackground}
             iconStyle={{marginRight: 0}}
             onPress={onPlayBtnClick}>
             <Text
               style={{
                 fontFamily: 'Arial',
                 fontSize: 15,
-                color: '#fff',
+                color: globalColors.primaryText,
                 fontWeight: 'bold',
                 paddingHorizontal: 10,
               }}>
@@ -95,7 +96,7 @@ export default SingleStreamModal;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: globalColors.primaryText,
   },
   centeredView: {
     padding: 25,
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#039EBD',
+    color: globalColors.primaryBackground,
   },
   textInput: {
     gap: 2,
@@ -112,13 +113,13 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     fontWeight: 'bold',
-    color: '#000',
+    color: globalColors.secondaryText,
   },
   inputField: {
     borderWidth: 1,
-    borderColor: '#039EBD',
+    borderColor: globalColors.primaryBackground,
     borderRadius: 5,
-    color: '#000',
+    color: globalColors.secondaryText,
   },
   actionBtn: {
     paddingHorizontal: 25,

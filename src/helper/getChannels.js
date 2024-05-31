@@ -1,3 +1,5 @@
+// import test from '../test.json';
+
 const fatchURLOne = async () => {
   // URL of the M3U file
   const m3uUrl = 'https://iptv-org.github.io/iptv/countries/us.m3u';
@@ -70,10 +72,12 @@ const fatchURLOne = async () => {
     return channels;
   } catch (error) {
     console.log(error);
+    return [];
   }
 };
 const fatchURLTwo = async () => {
-  const url = 'https://retrosoft.co/iptv_test_json.json';
+  // const url = 'https://retrosoft.co/iptv_test_json.json';
+  const url = 'https://ads.livemtv.com/Usa_json_bowntown.json';
   try {
     // Fetch the data
     let response = await fetch(url);
@@ -90,16 +94,44 @@ const fatchURLTwo = async () => {
     return data;
   } catch (error) {
     console.error('There has been a problem with your fetch operation:', error);
+    return [];
   }
 };
 
 export const getChannels = async () => {
   const dataOne = await fatchURLOne();
+
+  // Filter elements with groupTitle = 'News'
+  const newsItems = dataOne.filter(item => item.groupTitle === 'News');
+  // Filter elements that do not have groupTitle = 'News'
+  const otherItems = dataOne.filter(item => item.groupTitle !== 'News');
+
+  // Concatenate newsItems first followed by otherItems
+  const sortedDataOne = newsItems.concat(otherItems);
+
   const dataTwo = await fatchURLTwo();
 
-  console.log(dataTwo);
+  // console.log(dataTwo);
 
-  const channels = [...dataTwo, ...dataOne];
+  return [...dataTwo, ...sortedDataOne];
 
-  return channels;
+  const infoJSON = dataTwo;
+
+  console.log(infoJSON);
+
+  if (infoJSON.showDefaultURL === true && infoJSON.showCustomURL === true) {
+    return [...infoJSON.customURL, ...sortedDataOne];
+  } else if (
+    infoJSON.showDefaultURL === true &&
+    infoJSON.showCustomURL === false
+  ) {
+    return [...sortedDataOne];
+  } else if (
+    infoJSON.showDefaultURL === false &&
+    infoJSON.showCustomURL === true
+  ) {
+    return [...infoJSON.customURL];
+  } else {
+    return [];
+  }
 };

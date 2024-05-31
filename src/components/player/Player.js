@@ -45,7 +45,7 @@ const Player = () => {
     );
 
     return () => backHandler.remove();
-  }, []);
+  }, [navigation]);
 
   return (
     <>

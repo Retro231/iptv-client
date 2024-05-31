@@ -14,6 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SearchContext} from '../Context/SearchContext';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import {getChannels} from '../helper/getChannels';
+import {globalColors} from '../globalStyles';
 const headItem = [
   {
     id: 1,
@@ -154,7 +155,12 @@ const CategoryDetailsScreen = ({data}) => {
   const pullMe = async () => {
     setRefresh(true);
     const newData = await getChannels();
+    console.log('New loaded Data', newData);
+
     const updatedData = await getMergedChannels(newData, channels);
+
+    console.log('updated data after refresh', updatedData);
+
     setChannels(updatedData);
     setMainList(updatedData);
     storeChannels(updatedData);
@@ -171,19 +177,22 @@ const CategoryDetailsScreen = ({data}) => {
             style={[
               styles.headItem,
               {
-                backgroundColor: active === item.id ? '#039EBD' : '#d4d4d4',
+                backgroundColor:
+                  active === item.id
+                    ? globalColors.secondaryBackground
+                    : globalColors.primaryBackground,
               },
             ]}>
             <Icon
               name={item.iconName}
               size={item.iconSize}
-              color={active === item.id ? '#fff' : '#039EBD'}
+              color={active === item.id ? '#fff' : globalColors.primaryText}
             />
             <Text
               style={{
                 textAlign: 'center',
                 fontWeight: 'bold',
-                color: active === item.id ? '#fff' : '#039EBD',
+                color: active === item.id ? '#fff' : globalColors.primaryText,
               }}>
               {item.name}
             </Text>
@@ -214,6 +223,10 @@ const styles = StyleSheet.create({
   categorayHead: {
     flexDirection: 'row',
     width: Dimensions.get('window').width,
+    // borderTopWidth: 2,
+    // borderTopColor: globalColors.secondaryBackground,
+    borderBottomWidth: 3,
+    borderBottomColor: globalColors.secondaryBackground,
   },
   headItem: {
     backgroundColor: 'gray',

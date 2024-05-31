@@ -1,5 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {Text, View} from 'react-native';
 import React from 'react';
+import {globalColors} from '../globalStyles';
 
 const InternetInfo = () => {
   return (
@@ -8,12 +9,17 @@ const InternetInfo = () => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#039EBD',
+        backgroundColor: globalColors.primaryBackground,
       }}>
-      <Text style={{fontSize: 24, color: '#fff', fontWeight: 'bold'}}>
+      <Text
+        style={{
+          fontSize: 24,
+          color: globalColors.primaryText,
+          fontWeight: 'bold',
+        }}>
         No Internet Connection!!
       </Text>
-      <Text style={{fontSize: 18, color: '#fff'}}>
+      <Text style={{fontSize: 18, color: globalColors.primaryText}}>
         Please check you internet connection.
       </Text>
     </View>
@@ -21,5 +27,3 @@ const InternetInfo = () => {
 };
 
 export default InternetInfo;
-
-const styles = StyleSheet.create({});

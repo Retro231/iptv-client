@@ -19,6 +19,7 @@ import {ChannelsContext} from '../Context/ChannelsContext';
 import {getChannels} from '../helper/getChannels';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import BannerAd from '../components/adComponents/BannerAd';
+import {globalColors} from '../globalStyles';
 const Home = () => {
   const navigation = useNavigation();
   const {data, setData} = useContext(ChannelsContext);
@@ -67,26 +68,45 @@ const Home = () => {
       <Header title={'USA NEWS IPTV'} />
       {!loading && data === null && (
         <View style={styles.container}>
-          <Text style={{fontSize: 24, fontWeight: 'bold', color: '#000'}}>
+          <Text
+            style={{
+              fontSize: 24,
+              fontWeight: 'bold',
+              color: globalColors.secondaryText,
+            }}>
             No Playlist Added
           </Text>
-          <Icon name={'search'} size={32} color={'#039EBD'} />
-          <Text style={{color: '#000'}}>
+          <Icon
+            name={'search'}
+            size={32}
+            color={globalColors.primaryBackground}
+          />
+          <Text style={{color: globalColors.secondaryText}}>
             Click on "Search Playlist" and select suitable website
           </Text>
           <Icon.Button
             name="live-tv"
-            backgroundColor="#039EBD"
+            backgroundColor={globalColors.primaryBackground}
             onPress={handleSeachChannels}>
-            <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>
+            <Text
+              style={{
+                fontFamily: 'Arial',
+                fontSize: 15,
+                color: globalColors.primaryText,
+              }}>
               Search Playlist
             </Text>
           </Icon.Button>
           <Icon.Button
             name="play-circle"
-            backgroundColor="#039EBD"
+            backgroundColor={globalColors.primaryBackground}
             onPress={toggleModal}>
-            <Text style={{fontFamily: 'Arial', fontSize: 15, color: '#fff'}}>
+            <Text
+              style={{
+                fontFamily: 'Arial',
+                fontSize: 15,
+                color: globalColors.primaryText,
+              }}>
               Play Single Stream
             </Text>
           </Icon.Button>
@@ -114,7 +134,10 @@ const Home = () => {
             alignItems: 'center',
             flexDirection: 'row',
           }}>
-          <ActivityIndicator size="large" color="#039EBD" />
+          <ActivityIndicator
+            size="large"
+            color={globalColors.primaryBackground}
+          />
         </View>
       )}
       {/* banner ad */}
