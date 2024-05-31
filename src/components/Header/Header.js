@@ -278,7 +278,6 @@ const styles = StyleSheet.create({
     top: 10,
     right: 0,
     zIndex: 999,
-    backgroundColor: 'white',
   },
   centeredView: {
     flex: 1,

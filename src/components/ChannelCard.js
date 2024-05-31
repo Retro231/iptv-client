@@ -37,7 +37,14 @@ const ChannelCard = ({data, toggleFavourite}) => {
           }
         })
         .catch(err => console.error('An error occurred', err));
-    } else {
+    }
+
+    if (
+      type !== 'web' &&
+      type !== 'custom' &&
+      type?.length !== 0 &&
+      streamUrl.length !== 0
+    ) {
       navigation.navigate('Player', {
         streamUrl,
         title,
@@ -50,15 +57,18 @@ const ChannelCard = ({data, toggleFavourite}) => {
       activeOpacity={0.5}
       onPress={handleCardPress}
       style={styles.card}>
-      <Image
-        style={{backgroundColor: 'black'}}
-        source={{
-          uri: tvgLogo,
-        }}
-        width={Dimensions.get('screen').width / 2 - 6}
-        height={100}
-        resizeMode="center"
-      />
+      {tvgLogo.length !== 0 && (
+        <Image
+          style={{backgroundColor: 'black'}}
+          source={{
+            uri: tvgLogo,
+          }}
+          width={Dimensions.get('screen').width / 2 - 6}
+          height={100}
+          resizeMode="center"
+        />
+      )}
+
       <View
         style={{
           flexDirection: 'row',

@@ -155,7 +155,12 @@ const CategoryDetailsScreen = ({data}) => {
   const pullMe = async () => {
     setRefresh(true);
     const newData = await getChannels();
+    console.log('New loaded Data', newData);
+
     const updatedData = await getMergedChannels(newData, channels);
+
+    console.log('updated data after refresh', updatedData);
+
     setChannels(updatedData);
     setMainList(updatedData);
     storeChannels(updatedData);
