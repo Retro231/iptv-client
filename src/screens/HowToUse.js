@@ -50,7 +50,7 @@ const HowToUse = () => {
     );
 
     return () => backHandler.remove();
-  }, [navigation]);
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: globalColors.primaryBackground}}>
       <Header title={'How To Use'} goBackTo={'oneStep'} />

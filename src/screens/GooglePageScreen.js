@@ -28,6 +28,7 @@ const GooglePageScreen = () => {
   const [showModal2, setShowModal2] = useState(false);
   const [mainUriLoaded, setMainUriLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [showpopup, setshowpopup] = useState(true);
   const [togglePopUpCheckBox, setTogglePopUpCheckBox] = useState(false);
   const [mainUri, setMainUri] = useState(
@@ -149,6 +150,22 @@ const GooglePageScreen = () => {
         console.log('err', error);
       });
   };
+
+  const renderError = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+      }}>
+      <Text style={{color: 'red', fontSize: 18}}>Failed to load the page!</Text>
+      <Text style={{color: 'red', fontSize: 18, textAlign: 'center'}}>
+        Check your internet connection! Or try again later.
+      </Text>
+    </View>
+  );
+
   return (
     <View style={styles.container}>
       <WebView
@@ -162,6 +179,15 @@ const GooglePageScreen = () => {
         minimumZoomScale={1} // Set minimum zoom level
         startInLoadingState={true}
         onLoadEnd={handleLoadEnd}
+        onError={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          setError(true);
+        }}
+        onHttpError={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          setError(true);
+        }}
+        renderError={renderError}
       />
       {showModal1 && (
         <View style={styles.modalContainer}>
