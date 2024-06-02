@@ -22,6 +22,23 @@ function MyCustomDrawer(props) {
     navigation.dispatch(DrawerActions.closeDrawer());
   };
 
+  const redirectToGmail = receiverEmail => {
+    const gmailURL = `mailto:${receiverEmail}`;
+
+    Linking.canOpenURL(gmailURL)
+      .then(supported => {
+        if (supported) {
+          Linking.openURL(gmailURL);
+        } else {
+          // Fallback to web URL
+          Linking.openURL(
+            `https://mail.google.com/mail/?view=cm&fs=1&to=${receiverEmail}`,
+          );
+        }
+      })
+      .catch(err => console.error('An error occurred', err));
+  };
+
   const handleRateUs = () => {
     const URL = `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`;
 
@@ -60,7 +77,7 @@ function MyCustomDrawer(props) {
         <DrawerItem
           label="Email Us"
           labelStyle={{marginLeft: -25}}
-          onPress={() => Linking.openURL('https://mywebsite.com/help')}
+          onPress={() => redirectToGmail('iptvhelp4@gmail.com')}
           icon={({color}) => <Icon name="email" size={24} color={color} />}
         />
         <DrawerItem
@@ -78,7 +95,8 @@ function MyCustomDrawer(props) {
             alignItems: 'center',
             padding: 10,
             gap: 10,
-          }}>
+          }}
+          onPress={handleReset}>
           <Icon name="reset-tv" size={24} color={'gray'} />
           <Text style={{fontWeight: 'bold', color: 'gray'}}>Reset App</Text>
         </TouchableOpacity>

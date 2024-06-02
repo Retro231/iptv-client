@@ -15,7 +15,10 @@ const PrivacyPolicy = () => {
   const navigation = useNavigation();
   useEffect(() => {
     const backAction = () => {
-      navigation.goBack();
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
       return true;
     };
 
