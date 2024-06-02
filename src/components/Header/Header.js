@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useNavigationState} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ChannelsContext} from '../../Context/ChannelsContext';
 import SingleStreamModal from '../Single_Stream/SingleStreamModal';
@@ -20,7 +20,7 @@ import {SearchContext} from '../../Context/SearchContext';
 import {InterstitialAdManager} from 'react-native-fbads';
 import {globalColors} from '../../globalStyles';
 
-const Header = ({title, goBackTo}) => {
+const Header = ({title, goBackTo, refreshData}) => {
   const [menuModalVisible, setMenuModalVisible] = useState(false);
   const [singleStreamModalVisible, setSingleStreamModalVisible] =
     useState(false);
@@ -29,6 +29,17 @@ const Header = ({title, goBackTo}) => {
   const {searchValue, setSearchValue} = useContext(SearchContext);
   const [isSearchClicked, setIsSearchClicked] = useState(false);
   const textInputRef = useRef(null);
+  const [currentScreen, setCurrentScreen] = useState('Home');
+
+  // Track the current route
+  const state = useNavigationState(state => state);
+
+  useEffect(() => {
+    if (state) {
+      const route = state.routes[state.index].name;
+      setCurrentScreen(route);
+    }
+  }, [state]);
 
   // To focus searchTextInput
   useEffect(() => {
@@ -54,7 +65,8 @@ const Header = ({title, goBackTo}) => {
 
   // menu btn
   const handleMenu = () => {
-    setMenuModalVisible(prev => !prev);
+    navigation.openDrawer();
+    // setMenuModalVisible(prev => !prev);
   };
 
   //search
@@ -129,11 +141,16 @@ const Header = ({title, goBackTo}) => {
               value={searchValue}
             /> */}
               <TouchableOpacity
-                onPress={() => setIsSearchClicked(!isSearchClicked)}>
+                onPress={() => setIsSearchClicked(!isSearchClicked)}
+                disabled={currentScreen !== 'Home'}>
                 <Icon
                   name="search"
                   size={24}
-                  color={globalColors.primaryText}
+                  color={
+                    currentScreen !== 'Home'
+                      ? '#d9d9d9'
+                      : globalColors.primaryText
+                  }
                 />
               </TouchableOpacity>
               <TouchableOpacity onPress={handleSingleStream}>
@@ -141,6 +158,19 @@ const Header = ({title, goBackTo}) => {
                   name="play-circle"
                   size={24}
                   color={globalColors.primaryText}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={refreshData}
+                disabled={currentScreen !== 'Home'}>
+                <Icon
+                  name="refresh"
+                  size={24}
+                  color={
+                    currentScreen !== 'Home'
+                      ? '#d9d9d9'
+                      : globalColors.primaryText
+                  }
                 />
               </TouchableOpacity>
             </>
@@ -254,7 +284,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 15,
     backgroundColor: globalColors.primaryBackground,
     alignItems: 'center',
     position: 'relative',

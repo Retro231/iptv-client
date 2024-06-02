@@ -59,13 +59,17 @@ const Home = () => {
     checkPlaylist();
   }, []);
 
+  const handleRefresh = () => {
+    checkPlaylist();
+  };
+
   const handleSeachChannels = () => {
     navigation.navigate('GooglePageScreen');
   };
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Header title={'USA NEWS IPTV'} />
+      <Header title={'USA NEWS IPTV'} refreshData={handleRefresh} />
       {!loading && data === null && (
         <View style={styles.container}>
           <Text

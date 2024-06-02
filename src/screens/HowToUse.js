@@ -40,7 +40,10 @@ const HowToUse = () => {
   const navigation = useNavigation();
   useEffect(() => {
     const backAction = () => {
-      navigation.goBack();
+      navigation.reset({
+        index: 0,
+        routes: [{name: 'Home'}],
+      });
       return true;
     };
 
@@ -50,7 +53,7 @@ const HowToUse = () => {
     );
 
     return () => backHandler.remove();
-  }, [navigation]);
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: globalColors.primaryBackground}}>
       <Header title={'How To Use'} goBackTo={'oneStep'} />
