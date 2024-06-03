@@ -76,10 +76,11 @@ const fatchURLOne = async () => {
   }
 };
 const fatchURLTwo = async () => {
-  // const url = 'https://retrosoft.co/iptv_test_json.json';
-  const url = 'https://ads.livemtv.com/Usa_json_bowntown.json';
+  const url = 'https://retrosoft.co/iptv_test_json.json';
+
+  // const url = 'https://ads.livemtv.com/Usa_json_bowntown.json';
+
   try {
-    // Fetch the data
     let response = await fetch(url);
 
     // Check if the fetch was successful
@@ -113,7 +114,7 @@ export const getChannels = async () => {
 
   // console.log(dataTwo);
 
-  return [...dataTwo, ...sortedDataOne];
+  // return [...dataTwo, ...sortedDataOne];
 
   const infoJSON = dataTwo;
 
