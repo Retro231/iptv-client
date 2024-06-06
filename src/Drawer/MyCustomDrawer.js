@@ -5,7 +5,14 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {useContext} from 'react';
-import {Linking, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  BackHandler,
+  Linking,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {ChannelsContext} from '../Context/ChannelsContext';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -15,13 +22,28 @@ function MyCustomDrawer(props) {
   const {data, setData} = useContext(ChannelsContext);
   const navigation = useNavigation();
 
+  const exitApp = () => {
+    Alert.alert(
+      'Exit App',
+      'Are you sure you want to exit?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Exit', onPress: () => BackHandler.exitApp()},
+      ],
+      {cancelable: false},
+    );
+  };
+
   const handleReset = async () => {
     await AsyncStorage.clear();
     setData(null);
     navigation.navigate('Home');
     navigation.dispatch(DrawerActions.closeDrawer());
   };
-
   const redirectToGmail = receiverEmail => {
     const gmailURL = `mailto:${receiverEmail}`;
 
@@ -107,7 +129,8 @@ function MyCustomDrawer(props) {
             alignItems: 'center',
             padding: 10,
             gap: 10,
-          }}>
+          }}
+          onPress={exitApp}>
           <Icon name="exit-to-app" size={24} color={'#ff4f4f'} />
           <Text style={{fontWeight: 'bold', color: '#ff4f4f'}}>Exit</Text>
         </TouchableOpacity>
