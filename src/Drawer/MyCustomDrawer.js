@@ -16,7 +16,7 @@ import {
 import {ChannelsContext} from '../Context/ChannelsContext';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {globalColors} from '../globalStyles';
+import {globalColors, globalURLs, globalVariables} from '../global';
 
 function MyCustomDrawer(props) {
   const {data, setData} = useContext(ChannelsContext);
@@ -62,7 +62,7 @@ function MyCustomDrawer(props) {
   };
 
   const handleRateUs = () => {
-    const URL = `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`;
+    const URL = globalURLs.RateUsUrl;
 
     Linking.canOpenURL(URL)
       .then(supported => {
@@ -70,9 +70,7 @@ function MyCustomDrawer(props) {
           Linking.openURL(URL);
         } else {
           // Fallback to web URL
-          Linking.openURL(
-            `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`,
-          );
+          Linking.openURL(globalURLs.RateUsUrl);
         }
       })
       .catch(err => console.error('An error occurred', err));
@@ -90,8 +88,9 @@ function MyCustomDrawer(props) {
             fontSize: 18,
             fontWeight: 'bold',
             color: globalColors.primaryText,
+            textTransform: 'uppercase',
           }}>
-          USA NEWS IPTV
+          {globalVariables.Title}
         </Text>
       </View>
       <DrawerContentScrollView {...props}>
@@ -99,7 +98,7 @@ function MyCustomDrawer(props) {
         <DrawerItem
           label="Email Us"
           labelStyle={{marginLeft: -25}}
-          onPress={() => redirectToGmail('iptvhelp4@gmail.com')}
+          onPress={() => redirectToGmail(globalVariables.Email)}
           icon={({color}) => <Icon name="email" size={24} color={color} />}
         />
         <DrawerItem

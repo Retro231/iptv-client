@@ -1,6 +1,6 @@
 import {Text, View} from 'react-native';
 import React from 'react';
-import {globalColors} from '../globalStyles';
+import {globalColors} from '../global';
 
 const InternetInfo = () => {
   return (

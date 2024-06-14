@@ -8,6 +8,8 @@ const CardWebView = ({route}) => {
   const webViewRef = useRef(null);
   const {mainUri} = route.params;
   const navigation = useNavigation();
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     const backAction = () => {
       navigation.goBack();
@@ -21,7 +23,20 @@ const CardWebView = ({route}) => {
 
     return () => backHandler.remove();
   }, [navigation]);
-
+  const renderError = () => (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'white',
+      }}>
+      <Text style={{color: 'red', fontSize: 18}}>Failed to load the page!</Text>
+      <Text style={{color: 'red', fontSize: 18, textAlign: 'center'}}>
+        Check your internet connection! Or try again later.
+      </Text>
+    </View>
+  );
   return (
     <View style={{flex: 1}}>
       <Header goBackTo={'oneStep'} />
@@ -36,6 +51,15 @@ const CardWebView = ({route}) => {
         minimumZoomScale={1} // Set minimum zoom level
         startInLoadingState={true}
         // onLoadEnd={handleLoadEnd}
+        onError={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          setError(true);
+        }}
+        onHttpError={syntheticEvent => {
+          const {nativeEvent} = syntheticEvent;
+          setError(true);
+        }}
+        renderError={renderError}
       />
     </View>
   );

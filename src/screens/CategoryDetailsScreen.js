@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SearchContext} from '../Context/SearchContext';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import {getChannels} from '../helper/getChannels';
-import {globalColors} from '../globalStyles';
+import {globalColors} from '../global';
 const headItem = [
   {
     id: 1,

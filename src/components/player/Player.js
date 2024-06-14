@@ -5,6 +5,7 @@ import VideoPlayer from 'react-native-video-controls';
 import BannerAd from '../adComponents/BannerAd';
 import Orientation from 'react-native-orientation-locker';
 import {InterstitialAdManager} from 'react-native-fbads';
+import {globalVariables} from '../../global';
 
 const Player = () => {
   const navigation = useNavigation();
@@ -27,7 +28,7 @@ const Player = () => {
           navigation.goBack(null);
 
           // show ad
-          InterstitialAdManager.showAd('948800379889675_948801323222914')
+          InterstitialAdManager.showAd(globalVariables.InterstitialAdId)
             .then(didClick => {})
             .catch(error => {
               console.log('err', error);
@@ -69,9 +70,7 @@ const Player = () => {
         />
       </View>
       {/* banner ad */}
-      {!fullScreen && (
-        <BannerAd placement_id={'948800379889675_948801103222936'} />
-      )}
+      {!fullScreen && <BannerAd placement_id={globalVariables.BannerAdId} />}
     </>
   );
 };

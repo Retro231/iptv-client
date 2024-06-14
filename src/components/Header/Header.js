@@ -1,9 +1,6 @@
 import {
-  Alert,
   Dimensions,
-  Linking,
   Modal,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -13,12 +10,10 @@ import {
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ChannelsContext} from '../../Context/ChannelsContext';
 import SingleStreamModal from '../Single_Stream/SingleStreamModal';
 import {SearchContext} from '../../Context/SearchContext';
-import {InterstitialAdManager} from 'react-native-fbads';
-import {globalColors} from '../../globalStyles';
+import {globalColors, globalVariables} from '../../global';
 
 const Header = ({title, goBackTo, refreshData}) => {
   const [singleStreamModalVisible, setSingleStreamModalVisible] =
@@ -91,7 +86,7 @@ const Header = ({title, goBackTo, refreshData}) => {
             </TouchableOpacity>
           )}
 
-          <Text style={styles.logo}>{title}</Text>
+          <Text style={styles.logo}>{globalVariables.Title}</Text>
         </View>
         <View style={styles.actionBtn}>
           {data !== null && (
@@ -205,6 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: globalColors.primaryText,
+    textTransform: 'uppercase',
   },
   actionBtn: {
     flexDirection: 'row',
