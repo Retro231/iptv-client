@@ -9,7 +9,7 @@ import {
 import React, {useEffect} from 'react';
 import Header from '../components/Header/Header';
 import {useNavigation} from '@react-navigation/native';
-import {globalColors} from '../globalStyles';
+import {globalColors, globalVariables} from '../global';
 
 const PrivacyPolicy = () => {
   const navigation = useNavigation();
@@ -145,8 +145,8 @@ const PrivacyPolicy = () => {
               provided via the Application, please contact them at{' '}
               <Text
                 style={{color: 'blue', textDecorationLine: 'underline'}}
-                onPress={() => redirectToGmail('iptvhelp4@gmail.com')}>
-                iptvhelp4@gmail.com{' '}
+                onPress={() => redirectToGmail(globalVariables.Email)}>
+                {`${globalVariables.Email}`}{' '}
               </Text>
               and they will respond in a reasonable time.
             </Text>
@@ -166,8 +166,8 @@ const PrivacyPolicy = () => {
               personal information, please contact the Service Provider (
               <Text
                 style={{color: 'blue', textDecorationLine: 'underline'}}
-                onPress={() => redirectToGmail('iptvhelp4@gmail.com')}>
-                iptvhelp4@gmail.com
+                onPress={() => redirectToGmail(globalVariables.Email)}>
+                {`${globalVariables.Email}`}
               </Text>
               ) so that they will be able to take the necessary actions.
             </Text>
@@ -202,8 +202,8 @@ const PrivacyPolicy = () => {
               the Service Provider via email at{' '}
               <Text
                 style={{color: 'blue', textDecorationLine: 'underline'}}
-                onPress={() => redirectToGmail('iptvhelp4@gmail.com')}>
-                iptvhelp4@gmail.com
+                onPress={() => redirectToGmail(globalVariables.Email)}>
+                {`${globalVariables.Email}`}
               </Text>
               .
             </Text>

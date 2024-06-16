@@ -1,7 +1,6 @@
 import React from 'react';
 import {Dimensions, View, Text} from 'react-native';
 import {
-  AdIconView,
   MediaView,
   AdChoicesView,
   TriggerableView,

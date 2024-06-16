@@ -17,8 +17,7 @@ import BannerAd from '../components/adComponents/BannerAd';
 import {InterstitialAdManager} from 'react-native-fbads';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CheckBox from '@react-native-community/checkbox';
-import {globalColors} from '../globalStyles';
-
+import {globalColors, globalVariables} from '../global';
 const GooglePageScreen = () => {
   const navigation = useNavigation();
   const webViewRef = useRef(null);
@@ -126,7 +125,7 @@ const GooglePageScreen = () => {
       navigation.navigate('Home');
 
       // Interstitial Ad
-      InterstitialAdManager.showAd('948800379889675_948801323222914')
+      InterstitialAdManager.showAd(globalVariables.InterstitialAdId)
         .then(didClick => {})
         .catch(error => {
           console.log('err', error);
@@ -144,7 +143,7 @@ const GooglePageScreen = () => {
     }
     setShowModal1(false);
     // Interstitial Ad
-    InterstitialAdManager.showAd('948800379889675_948801323222914')
+    InterstitialAdManager.showAd(globalVariables.InterstitialAdId)
       .then(didClick => {})
       .catch(error => {
         console.log('err', error);
@@ -298,7 +297,7 @@ const GooglePageScreen = () => {
         </View>
       )}
       {/* banner ad */}
-      <BannerAd placement_id={'948800379889675_948801103222936'} />
+      <BannerAd placement_id={globalVariables.BannerAdId} />
     </View>
   );
 };

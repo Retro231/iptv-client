@@ -1,9 +1,6 @@
 import {
-  Alert,
   Dimensions,
-  Linking,
   Modal,
-  Pressable,
   StyleSheet,
   Text,
   TextInput,
@@ -13,15 +10,12 @@ import {
 import React, {useContext, useEffect, useRef, useState} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useNavigation, useNavigationState} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ChannelsContext} from '../../Context/ChannelsContext';
 import SingleStreamModal from '../Single_Stream/SingleStreamModal';
 import {SearchContext} from '../../Context/SearchContext';
-import {InterstitialAdManager} from 'react-native-fbads';
-import {globalColors} from '../../globalStyles';
+import {globalColors, globalVariables} from '../../global';
 
 const Header = ({title, goBackTo, refreshData}) => {
-  const [menuModalVisible, setMenuModalVisible] = useState(false);
   const [singleStreamModalVisible, setSingleStreamModalVisible] =
     useState(false);
   // const [searchText, setSearchText] = useState('');
@@ -66,61 +60,22 @@ const Header = ({title, goBackTo, refreshData}) => {
   // menu btn
   const handleMenu = () => {
     navigation.openDrawer();
-    // setMenuModalVisible(prev => !prev);
   };
 
-  //search
-  // const handleSearch = () => {
-  //   setSearchModalVisible(prev => !prev);
-  // };
   const handleSearchTextChange = text => {
     setSearchValue(text);
   };
-  // const handleSearchBtn = () => {
-  //   navigation.navigate('SearchResultScreen', {data: data, value: searchText});
-  //   setSearchModalVisible(false);
-  //   setSearchText('');
-  // };
 
-  const handleReset = async () => {
-    setMenuModalVisible(!menuModalVisible);
-    await AsyncStorage.clear();
-    setData(null);
-    navigation.navigate('Home');
-  };
-
-  const handleRateUs = () => {
-    const URL = `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`;
-
-    Linking.canOpenURL(URL)
-      .then(supported => {
-        if (supported) {
-          Linking.openURL(URL);
-        } else {
-          // Fallback to web URL
-          Linking.openURL(
-            `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`,
-          );
-        }
-      })
-      .catch(err => console.error('An error occurred', err));
-  };
-
-  // ads
-  useEffect(() => {
-    // Interstitial Ad
-    if (menuModalVisible) {
-      InterstitialAdManager.showAd('948800379889675_948801323222914')
-        .then(didClick => {})
-        .catch(error => {
-          console.log('err', error);
-        });
-    }
-  }, [menuModalVisible]);
   return (
     <>
       <View style={styles.container}>
         <View style={styles.headerLeft}>
+          {!goBackTo && (
+            <TouchableOpacity onPress={handleMenu}>
+              <Icon name="menu" size={24} color={globalColors.primaryText} />
+            </TouchableOpacity>
+          )}
+
           {goBackTo && (
             <TouchableOpacity onPress={handleGoBack}>
               <Icon
@@ -131,7 +86,7 @@ const Header = ({title, goBackTo, refreshData}) => {
             </TouchableOpacity>
           )}
 
-          <Text style={styles.logo}>{title}</Text>
+          <Text style={styles.logo}>{globalVariables.Title}</Text>
         </View>
         <View style={styles.actionBtn}>
           {data !== null && (
@@ -175,59 +130,7 @@ const Header = ({title, goBackTo, refreshData}) => {
               </TouchableOpacity>
             </>
           )}
-          <TouchableOpacity onPress={handleMenu}>
-            <Icon name="more-vert" size={24} color={globalColors.primaryText} />
-          </TouchableOpacity>
         </View>
-        <Modal
-          animationType="fade"
-          transparent={true}
-          visible={menuModalVisible}
-          onRequestClose={() => {
-            setMenuModalVisible(!menuModalVisible);
-          }}>
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <TouchableOpacity
-                style={{
-                  alignItems: 'flex-end',
-                  borderColor: 'black',
-                  borderWidth: 1,
-                  position: 'absolute',
-                  top: -35,
-                  right: -30,
-                  borderColor: 'white',
-                  backgroundColor: '#ff7373',
-                }}
-                onPress={() => setMenuModalVisible(!menuModalVisible)}>
-                <Icon name="close" size={24} color="white" />
-              </TouchableOpacity>
-              <Pressable onPress={handleReset}>
-                <Text style={styles.menuItem}>Reset</Text>
-              </Pressable>
-              <Pressable onPress={handleRateUs}>
-                <Text style={styles.menuItem}>Rate Us</Text>
-              </Pressable>
-              {/* <Pressable>
-                <Text style={styles.menuItem}>More App</Text>
-              </Pressable> */}
-              <Pressable
-                onPress={() => {
-                  navigation.navigate('HowToUse');
-                  setMenuModalVisible(false);
-                }}>
-                <Text style={styles.menuItem}>How to use</Text>
-              </Pressable>
-              <Pressable
-                onPress={() => {
-                  navigation.navigate('PrivacyPolicy');
-                  setMenuModalVisible(false);
-                }}>
-                <Text style={styles.menuItem}>Privacy Policy</Text>
-              </Pressable>
-            </View>
-          </View>
-        </Modal>
         {/* single stream */}
         <Modal
           animationType="slide"
@@ -297,6 +200,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: globalColors.primaryText,
+    textTransform: 'uppercase',
   },
   actionBtn: {
     flexDirection: 'row',

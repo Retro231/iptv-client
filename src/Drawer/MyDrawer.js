@@ -1,11 +1,10 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {MyStack} from '../Stack/MyStack';
 import PrivacyPolicy from '../screens/PrivacyPolicy';
 import Home from '../screens/Home';
 import HowToUse from '../screens/HowToUse';
 import MyCustomDrawer from './MyCustomDrawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {globalColors} from '../globalStyles';
+import {globalColors} from '../global';
 
 const Drawer = createDrawerNavigator();
 

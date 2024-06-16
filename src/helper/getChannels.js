@@ -6,7 +6,11 @@ const fatchURLOne = async () => {
 
   try {
     // Fetch the contents of the M3U file
-    const data = await fetch(m3uUrl).then(response => {
+    const data = await fetch(m3uUrl, {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    }).then(response => {
       // Check if the request was successful
       if (!response.ok) {
         throw new Error(
@@ -75,12 +79,36 @@ const fatchURLOne = async () => {
     return [];
   }
 };
+
+const sortDataOne = async () => {
+  const dataOne = await fatchURLOne();
+
+  // Filter elements with groupTitle = 'News'
+  const newsItems = dataOne.filter(item => item.groupTitle === 'News');
+  // Filter elements that do not have groupTitle = 'News'
+  const otherItems = dataOne.filter(item => item.groupTitle !== 'News');
+
+  // Concatenate newsItems first followed by otherItems
+  const sortedDataOne = newsItems.concat(otherItems);
+
+  console.log(sortDataOne.length);
+
+  return sortedDataOne;
+};
+
 const fatchURLTwo = async () => {
   // const url = 'https://retrosoft.co/iptv_test_json.json';
-  const url = 'https://ads.livemtv.com/Usa_json_bowntown.json';
+
+  const url = 'https://ads.livemtv.com/Usa_json_bowntown_version2.json';
+
+  // const url = 'https://api.jsonbin.io/v3/b/66624163ad19ca34f87552f3';
+
   try {
-    // Fetch the data
-    let response = await fetch(url);
+    let response = await fetch(url, {
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    });
 
     // Check if the fetch was successful
     if (!response.ok) {
@@ -99,37 +127,31 @@ const fatchURLTwo = async () => {
 };
 
 export const getChannels = async () => {
-  const dataOne = await fatchURLOne();
-
-  // Filter elements with groupTitle = 'News'
-  const newsItems = dataOne.filter(item => item.groupTitle === 'News');
-  // Filter elements that do not have groupTitle = 'News'
-  const otherItems = dataOne.filter(item => item.groupTitle !== 'News');
-
-  // Concatenate newsItems first followed by otherItems
-  const sortedDataOne = newsItems.concat(otherItems);
-
   const dataTwo = await fatchURLTwo();
 
   // console.log(dataTwo);
 
-  return [...dataTwo, ...sortedDataOne];
+  // return [...dataTwo, ...sortedDataOne];
 
   const infoJSON = dataTwo;
 
-  console.log(infoJSON);
+  // console.log(infoJSON);
 
   if (infoJSON.showDefaultURL === true && infoJSON.showCustomURL === true) {
+    const sortedDataOne = await sortDataOne();
     return [...infoJSON.customURL, ...sortedDataOne];
   } else if (
     infoJSON.showDefaultURL === true &&
     infoJSON.showCustomURL === false
   ) {
+    const sortedDataOne = await sortDataOne();
     return [...sortedDataOne];
   } else if (
     infoJSON.showDefaultURL === false &&
     infoJSON.showCustomURL === true
   ) {
+    console.log('hit false true');
+
     return [...infoJSON.customURL];
   } else {
     return [];

@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {SearchContext} from '../Context/SearchContext';
 import {getMergedChannels} from '../helper/getMergedChannels';
 import {getChannels} from '../helper/getChannels';
-import {globalColors} from '../globalStyles';
+import {globalColors} from '../global';
 const headItem = [
   {
     id: 1,
@@ -155,7 +155,7 @@ const CategoryDetailsScreen = ({data}) => {
   const pullMe = async () => {
     setRefresh(true);
     const newData = await getChannels();
-    console.log('New loaded Data', newData);
+    // console.log('New loaded Data', newData);
 
     const updatedData = await getMergedChannels(newData, channels);
 

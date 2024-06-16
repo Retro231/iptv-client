@@ -16,6 +16,7 @@ import InternetInfo from './screens/InternetInfo';
 import {SearchContext} from './Context/SearchContext';
 import {OneSignal} from 'react-native-onesignal';
 import SplashScreen from 'react-native-splash-screen';
+import {globalVariables} from './global';
 
 const App = () => {
   const [data, setData] = useState(null);
@@ -61,7 +62,7 @@ const App = () => {
     };
   }, []);
 
-  OneSignal.initialize('e17486f5-e895-4ae2-bfc9-470cbaded3df');
+  OneSignal.initialize(globalVariables.OneSignalId);
 
   return (
     <NavigationContainer>

@@ -5,15 +5,38 @@ import {
   DrawerItemList,
 } from '@react-navigation/drawer';
 import {useContext} from 'react';
-import {Linking, Text, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  BackHandler,
+  Linking,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {ChannelsContext} from '../Context/ChannelsContext';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import {globalColors} from '../globalStyles';
+import {globalColors, globalURLs, globalVariables} from '../global';
 
 function MyCustomDrawer(props) {
   const {data, setData} = useContext(ChannelsContext);
   const navigation = useNavigation();
+
+  const exitApp = () => {
+    Alert.alert(
+      'Exit App',
+      'Are you sure you want to exit?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {text: 'Exit', onPress: () => BackHandler.exitApp()},
+      ],
+      {cancelable: false},
+    );
+  };
 
   const handleReset = async () => {
     await AsyncStorage.clear();
@@ -21,7 +44,6 @@ function MyCustomDrawer(props) {
     navigation.navigate('Home');
     navigation.dispatch(DrawerActions.closeDrawer());
   };
-
   const redirectToGmail = receiverEmail => {
     const gmailURL = `mailto:${receiverEmail}`;
 
@@ -40,7 +62,7 @@ function MyCustomDrawer(props) {
   };
 
   const handleRateUs = () => {
-    const URL = `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`;
+    const URL = globalURLs.RateUsUrl;
 
     Linking.canOpenURL(URL)
       .then(supported => {
@@ -48,9 +70,7 @@ function MyCustomDrawer(props) {
           Linking.openURL(URL);
         } else {
           // Fallback to web URL
-          Linking.openURL(
-            `https://play.google.com/store/apps/details?id=com.iptvusa.iptvapp`,
-          );
+          Linking.openURL(globalURLs.RateUsUrl);
         }
       })
       .catch(err => console.error('An error occurred', err));
@@ -68,8 +88,9 @@ function MyCustomDrawer(props) {
             fontSize: 18,
             fontWeight: 'bold',
             color: globalColors.primaryText,
+            textTransform: 'uppercase',
           }}>
-          USA NEWS IPTV
+          {globalVariables.Title}
         </Text>
       </View>
       <DrawerContentScrollView {...props}>
@@ -77,7 +98,7 @@ function MyCustomDrawer(props) {
         <DrawerItem
           label="Email Us"
           labelStyle={{marginLeft: -25}}
-          onPress={() => redirectToGmail('iptvhelp4@gmail.com')}
+          onPress={() => redirectToGmail(globalVariables.Email)}
           icon={({color}) => <Icon name="email" size={24} color={color} />}
         />
         <DrawerItem
@@ -107,7 +128,8 @@ function MyCustomDrawer(props) {
             alignItems: 'center',
             padding: 10,
             gap: 10,
-          }}>
+          }}
+          onPress={exitApp}>
           <Icon name="exit-to-app" size={24} color={'#ff4f4f'} />
           <Text style={{fontWeight: 'bold', color: '#ff4f4f'}}>Exit</Text>
         </TouchableOpacity>
